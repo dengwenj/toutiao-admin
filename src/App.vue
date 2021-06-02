@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <h2>哈哈哈</h2>
     <!-- 路由出口  显示的-->
     <router-view />
   </div>
