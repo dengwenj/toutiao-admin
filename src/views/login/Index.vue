@@ -21,7 +21,7 @@
       :model="user"
       :rules="rulesFrom"
     >
-      <div class="xiaodeng">xiaoDeng头条号</div>
+      <div class="xiaodeng">尾尾头条号</div>
       <el-form-item prop="mobile">
         <el-input v-model="user.mobile" placeholder="请输入手机号"></el-input>
       </el-form-item>
@@ -47,15 +47,15 @@
 </template>
 
 <script>
-import request from '@/utils/request'
+import { login } from '@/api/user'
 
 export default {
   name: 'LoginIndex',
   data () {
     return {
       user: {
-        mobile: '', // 手机号
-        code: '', // 验证码
+        mobile: '13911111111', // 手机号
+        code: '246810', // 验证码
         agree: false // 同意协议
       },
       loginLoading: false, // 登录的时候loading提示
@@ -109,19 +109,14 @@ export default {
           return
         }
         // 表单验证成功 请求登录
-        this.login()
+        this._login()
       })
     },
-    login () {
+    _login () {
       this.loginLoading = true
       this.text = '登录中'
       // 请求登录
-      request({
-        url: '/mp/v1_0/authorizations',
-        method: 'POST',
-        // data 用来设置POST请求体 请求体里面放的是参数
-        data: this.user
-      })
+      login(this.user)
         .then((result) => {
           console.log(result)
           // 登录成功
@@ -131,9 +126,11 @@ export default {
           })
           this.loginLoading = false
           this.text = '登录'
+          // 跳转到首页
+          // this.$router.push('/')
+          this.$router.push({ name: 'home' })
         })
-        .catch((err) => {
-          console.log('登录失败', err)
+        .catch(() => {
           // 登录失败
           this.$message.error('登录失败，手机号或验证码错误')
           this.loginLoading = false
@@ -165,7 +162,7 @@ export default {
     .xiaodeng {
       position: absolute;
       top: 15px;
-      left: 125px;
+      left: 150px;
       font-size: 18px;
       color: #2692ff;
     }
