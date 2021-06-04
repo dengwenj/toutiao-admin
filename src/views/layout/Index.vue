@@ -1,14 +1,15 @@
 <template>
   <el-container class="layout-container">
-    <el-aside class="aside" width="200px">
-      <!-- aside组件 -->
-      <app-aside class="aside-menu">
-        <div class="toutiao">尾尾头条</div>
+    <el-aside class="aside" width="auto" :style="width">
+      <!-- 侧边栏组件 -->
+      <app-aside class="aside-menu" :collapse="isCollapse">
+        <div class="toutiao" v-show="!isCollapse">尾尾头条</div>
       </app-aside>
     </el-aside>
     <el-container>
       <el-header class="header">
-        <app-header></app-header>
+        <!-- 头部组件 -->
+        <app-header @iClick="iClick" :tupiao="isCollapse"></app-header>
       </el-header>
       <el-main class="main">
         <!-- 子路由出口 -->
@@ -23,20 +24,32 @@ import AppAside from './compschild/Aside'
 import AppHeader from './compschild/Header'
 
 export default {
-  name: '',
+  name: 'layoutIndex',
   components: {
     AppAside,
     AppHeader
   },
   props: {},
   data () {
-    return {}
+    return {
+      // 父传子 传给子了
+      isCollapse: false // 侧边菜单栏的展示状态
+    }
   },
-  computed: {},
+  computed: {
+    width () {
+      return this.isCollapse ? {} : { width: '200px' }
+    }
+  },
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    // 点击收缩展开 子传父的
+    iClick () {
+      this.isCollapse = !this.isCollapse
+    }
+  }
 }
 </script>
 
@@ -50,7 +63,7 @@ export default {
   bottom: 0;
 }
 .aside {
-  background-color: #d3dce6;
+  // background-color: #d3dce6;
   .aside-menu {
     height: 100%;
     .toutiao {

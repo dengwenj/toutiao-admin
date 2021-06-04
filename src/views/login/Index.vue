@@ -118,12 +118,15 @@ export default {
       // 请求登录
       login(this.user)
         .then((result) => {
-          console.log(result)
+          // console.log(result)
           // 登录成功
           this.$message({
             message: '登录成功',
             type: 'success'
           })
+          // 本地存储 这样任何地方都可以访问了
+          window.localStorage.setItem('user', JSON.stringify(result.data.data))
+
           this.loginLoading = false
           this.text = '登录'
           // 跳转到首页

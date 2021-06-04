@@ -6,6 +6,7 @@
     text-color="#fff"
     active-text-color="#ffd04b"
     router
+    :collapse="collapse"
   >
     <!-- 插槽 -->
     <slot></slot>
@@ -44,7 +45,12 @@
 export default {
   name: 'Aside',
   comments: {},
-  props: {},
+  props: {
+    collapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {}
   },

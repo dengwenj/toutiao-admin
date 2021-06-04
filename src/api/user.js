@@ -14,3 +14,18 @@ export function login (data) {
     data
   })
 }
+
+// 用户个人资料
+export function getUserProfile () {
+  // 本体储存了 可以在任何地方用来了
+  // const user = JSON.parse(window.localStorage.getItem('user'))
+  return request({
+    url: '/mp/v1_0/user/profile',
+    method: 'GET'
+    // 后端要求授权的用户身份放到请求头中
+    // axios 可以通过 headers 选项设置请求头
+    // headers: {
+    //   Authorization: `Bearer ${user.token}`
+    // }
+  })
+}
