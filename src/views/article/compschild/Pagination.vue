@@ -1,5 +1,5 @@
 <template>
-  <!-- page-size 每页显示条目个数 默认的是每页10条 total 是总条数
+  <!-- page-size 每页显示条目个数 默认的是每页10条 total 是总条数 
       current-change  currentPage改变时会触发	 回调参数当前页  @current-change="onCurrentChange"
    -->
   <el-pagination
@@ -21,29 +21,29 @@ export default {
     // 父传子
     totalCount: {
       type: Number,
-      default: 0
+      default: 0,
     },
     pageSize: {
       type: Number,
-      default: 10
+      default: 10,
     },
     loading: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
-  data () {
+  data() {
     return {}
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {
-    onCurrentChange (page) {
+    onCurrentChange(page) {
       this.$emit('onCurrentChange', page)
-    }
-  }
+    },
+  },
 }
 </script>
 
