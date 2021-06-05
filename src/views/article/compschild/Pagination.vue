@@ -1,5 +1,15 @@
 <template>
-  <el-pagination background layout="prev, pager, next" :total="1000">
+  <!-- page-size 每页显示条目个数 默认的是每页10条 total 是总条数
+      current-change  currentPage改变时会触发	 回调参数当前页  @current-change="onCurrentChange"
+   -->
+  <el-pagination
+    background
+    layout="prev, pager, next"
+    :total="totalCount"
+    @current-change="onCurrentChange"
+    :page-size="pageSize"
+    :disabled="loading"
+  >
   </el-pagination>
 </template>
 
@@ -7,7 +17,21 @@
 export default {
   name: '',
   components: {},
-  props: {},
+  props: {
+    // 父传子
+    totalCount: {
+      type: Number,
+      default: 0
+    },
+    pageSize: {
+      type: Number,
+      default: 10
+    },
+    loading: {
+      type: Boolean,
+      default: true
+    }
+  },
   data () {
     return {}
   },
@@ -15,7 +39,11 @@ export default {
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    onCurrentChange (page) {
+      this.$emit('onCurrentChange', page)
+    }
+  }
 }
 </script>
 
