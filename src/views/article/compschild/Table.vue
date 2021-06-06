@@ -94,57 +94,57 @@ export default {
   props: {
     articles: {
       type: Array,
-      default() {
+      default () {
         return []
-      },
+      }
     },
     loading: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
-  data() {
+  data () {
     return {
       articleStatus: [
         {
           status: 0,
           type: 'warning',
-          text: '草稿',
+          text: '草稿'
         },
         {
           status: 1,
           type: '',
-          text: '待审核',
+          text: '待审核'
         },
         {
           status: 2,
           type: 'success',
-          text: '审核通过',
+          text: '审核通过'
         },
         {
           status: 3,
           type: 'danger',
-          text: '审核失败',
+          text: '审核失败'
         },
         {
           status: 4,
           type: 'info',
-          text: '已删除',
-        },
-      ],
+          text: '已删除'
+        }
+      ]
     }
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () {},
+  mounted () {},
   methods: {
-    onDeleteArticle(id) {
+    onDeleteArticle (id) {
       // 子传父
       this.$emit('articleId', id)
       // console.log(id)
-    },
-  },
+    }
+  }
 }
 </script>
 

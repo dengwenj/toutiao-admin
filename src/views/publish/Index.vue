@@ -25,17 +25,17 @@ export default {
   name: 'PublishIndex',
   components: {
     PublishBreadcrumb,
-    PublishForm,
+    PublishForm
   },
   props: {},
-  data() {
+  data () {
     return {
-      channels: [], // 文章频道列表
+      channels: [] // 文章频道列表
     }
   },
   computed: {},
   watch: {},
-  created() {
+  created () {
     // 发送请求
     this._getArticleChannels()
 
@@ -46,29 +46,29 @@ export default {
       this.loadArticle()
     }
   },
-  mounted() {},
+  mounted () {},
   methods: {
-    _getArticleChannels() {
+    _getArticleChannels () {
       getArticleChannels().then((res) => {
         const { data } = res.data
         this.channels = data.channels
       })
     },
-    addArticle(article, draft) {
+    addArticle (article, draft) {
       // 新建文章
       addArticle(article, draft).then((res) => {
         this.$message({
           message: '发布成功',
-          type: 'success',
+          type: 'success'
         })
       })
     },
 
-    //修该文章：加载文章内容
-    loadArticle() {
+    // 修该文章：加载文章内容
+    loadArticle () {
       console.log(111111111)
-    },
-  },
+    }
+  }
 }
 </script>
 

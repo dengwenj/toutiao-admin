@@ -21,29 +21,29 @@ export default {
     // 父传子
     totalCount: {
       type: Number,
-      default: 0,
+      default: 0
     },
     pageSize: {
       type: Number,
-      default: 10,
+      default: 10
     },
     loading: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
-  data() {
+  data () {
     return {}
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () {},
+  mounted () {},
   methods: {
-    onCurrentChange(page) {
+    onCurrentChange (page) {
       this.$emit('onCurrentChange', page)
-    },
-  },
+    }
+  }
 }
 </script>
 

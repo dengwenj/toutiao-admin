@@ -48,10 +48,10 @@ export default {
     Breadcrumb,
     ArticleForm,
     ArticleTable,
-    ArticlePagination,
+    ArticlePagination
   },
   props: {},
-  data() {
+  data () {
     return {
       articles: [], // 文章数据列表
       totalCount: 0, // 总条数
@@ -62,12 +62,12 @@ export default {
       channelId: null, // 查询文章的频道
       rangDate: null, // 范围日期
       loading: true, // 表单加载中 loading
-      page: 1, // 当前页
+      page: 1 // 当前页
     }
   },
   computed: {},
   watch: {},
-  created() {
+  created () {
     // 发送请求
     this._getArticles()
     this._getArticleChannels()
@@ -76,11 +76,11 @@ export default {
     // 子组件再去调用这个函数就可以重新发送请求了 就有新的数据过来了
     this.dianji = this._getArticles
   },
-  mounted() {},
+  mounted () {},
   methods: {
     // 获取文章列表
     // page = 1 默认为第一页
-    _getArticles(page = 1) {
+    _getArticles (page = 1) {
       // 发送请求时 展示加载中 loading
       this.loading = true
       getArticles({
@@ -89,7 +89,7 @@ export default {
         status: this.status,
         channel_id: this.channelId ? this.channelId : null,
         begin_pubdate: this.rangDate ? this.rangDate[0] : null, // 开始日期
-        end_pubdate: this.rangDate ? this.rangDate[1] : null, // 截止日期
+        end_pubdate: this.rangDate ? this.rangDate[1] : null // 截止日期
       }).then((res) => {
         console.log(res)
         const { results, total_count } = res.data.data
@@ -102,13 +102,13 @@ export default {
     },
 
     // 子传父 分页
-    onCurrentChange(page) {
+    onCurrentChange (page) {
       // 把点击的页码给参数传过去  要调用才能去执行 不能在data里面弄变量这样他没有调用
       this._getArticles(page)
       this.page = page
     },
 
-    statusClick(status, region, rangDate) {
+    statusClick (status, region, rangDate) {
       this.status = status
       // console.log(status)
       this.channelId = region
@@ -118,7 +118,7 @@ export default {
     },
 
     //  文章频道
-    _getArticleChannels() {
+    _getArticleChannels () {
       getArticleChannels().then((res) => {
         // console.log(res)
         this.channels = res.data.data.channels
@@ -126,14 +126,14 @@ export default {
     },
 
     // 删除文章
-    articleId(id) {
+    articleId (id) {
       // console.log(id)
       // console.log(id.toString())
       // 找到数据接口 封装请求方法 删除请求调用 处理响应结果
       this.$confirm('是否删除文章？', '删除提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning',
+        type: 'warning'
       })
         .then(() => {
           // 这里就是做一些业务
@@ -147,11 +147,11 @@ export default {
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消删除',
+            message: '已取消删除'
           })
         })
-    },
-  },
+    }
+  }
 }
 </script>
 

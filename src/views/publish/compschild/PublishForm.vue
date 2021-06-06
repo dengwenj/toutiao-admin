@@ -40,12 +40,12 @@ export default {
   props: {
     channels: {
       type: Array,
-      defalut() {
+      defalut () {
         return []
-      },
-    },
+      }
+    }
   },
-  data() {
+  data () {
     return {
       article: {
         title: '', // 文章标题
@@ -53,21 +53,21 @@ export default {
         // 文章封面
         cover: {
           type: 0, // 封面类型 -1:自动，0-无图，1-1张，3-3张
-          images: [], // 封面图片地址
+          images: [] // 封面图片地址
         },
-        channel_id: null, // 文章频道id
-      },
+        channel_id: null // 文章频道id
+      }
     }
   },
   computed: {},
   watch: {},
-  created() {},
-  mounted() {},
+  created () {},
+  mounted () {},
   methods: {
-    onPublish(article, draft) {
+    onPublish (article, draft) {
       this.$emit('addArticle', article, draft)
-    },
-  },
+    }
+  }
 }
 </script>
 
