@@ -5,6 +5,7 @@ import Login from '@/views/login/Index'
 import Home from '@/views/home/Index'
 import Layout from '@/views/layout/Index'
 import Article from '@/views/article/Index'
+import Publish from "@/views/publish/Index";
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,10 @@ const routes = [{
     path: '/article',
     name: 'article',
     component: Article
+  }, {
+    path: '/publish',
+    name: 'publish',
+    component: Publish
   }]
 }]
 
@@ -42,7 +47,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 判断登录 如果是 /login 就放行 如果不是 /login 判断如果登录过了就放行 没登录就回到登录页面
   const user = JSON.parse(window.localStorage.getItem('user'))
-  // 校验非登录页面的登录状态
+    // 校验非登录页面的登录状态
   if (to.path !== '/login') {
     if (user) {
       //  登录过了 允许通过
