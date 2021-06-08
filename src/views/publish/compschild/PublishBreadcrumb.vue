@@ -1,7 +1,9 @@
 <template>
   <el-breadcrumb separator-class="el-icon-arrow-right">
     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-    <el-breadcrumb-item>发布文章</el-breadcrumb-item>
+    <el-breadcrumb-item>{{
+      activeId ? '修改文章' : '发布文章'
+    }}</el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
@@ -9,15 +11,20 @@
 export default {
   name: '',
   components: {},
-  props: {},
-  data () {
+  props: {
+    activeId: {
+      type: String,
+      defalut: '',
+    },
+  },
+  data() {
     return {}
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
-  methods: {}
+  created() {},
+  mounted() {},
+  methods: {},
 }
 </script>
 

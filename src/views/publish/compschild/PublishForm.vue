@@ -4,6 +4,7 @@
       <el-input v-model="article.title"></el-input>
     </el-form-item>
     <el-form-item label="内容">
+      <!-- <el-tiptap v-model="article.content" :extensions="extensions" /> -->
       <el-input type="textarea" v-model="article.content"></el-input>
     </el-form-item>
     <el-form-item label="封面">
@@ -25,10 +26,14 @@
       </el-select>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onPublish(article, false)"
-        >发表</el-button
+      <el-button type="primary" @click="onPublish(article, false)">{{
+        activeId ? '修改' : '发表'
+      }}</el-button>
+      <el-button
+        v-if="activeId ? false : true"
+        @click="onPublish(article, true)"
+        >存入草稿</el-button
       >
-      <el-button @click="onPublish(article, true)">存入草稿</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -40,12 +45,16 @@ export default {
   props: {
     channels: {
       type: Array,
-      defalut () {
+      defalut() {
         return []
-      }
-    }
+      },
+    },
+    activeId: {
+      type: String,
+      defalut: '',
+    },
   },
-  data () {
+  data() {
     return {
       article: {
         title: '', // 文章标题
@@ -53,23 +62,25 @@ export default {
         // 文章封面
         cover: {
           type: 0, // 封面类型 -1:自动，0-无图，1-1张，3-3张
-          images: [] // 封面图片地址
+          images: [], // 封面图片地址
         },
-        channel_id: null // 文章频道id
-      }
+        channel_id: null, // 文章频道id
+      },
     }
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {
-    onPublish (article, draft) {
+    onPublish(article, draft) {
       this.$emit('addArticle', article, draft)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped lang="less">
 </style>
+
+
