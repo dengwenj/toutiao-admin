@@ -51,12 +51,12 @@ import { login } from '@/api/user'
 
 export default {
   name: 'LoginIndex',
-  data () {
+  data() {
     return {
       user: {
         mobile: '13911111111', // 手机号
         code: '246810', // 验证码
-        agree: false // 同意协议
+        agree: false, // 同意协议
       },
       loginLoading: false, // 登录的时候loading提示
       text: '登录',
@@ -68,16 +68,16 @@ export default {
           {
             pattern: /^1[3|5|6|7|8|9]\d{9}$/,
             message: '手机号码格式错误',
-            trigger: 'blur'
-          }
+            trigger: 'blur',
+          },
         ],
         code: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
           {
             pattern: /^\d{6}$/,
             message: '验证码格式错误',
-            trigger: 'blur'
-          }
+            trigger: 'blur',
+          },
         ],
         // 自定义校验规则
         // 验证通过:callback()
@@ -90,14 +90,14 @@ export default {
               }
               callback(new Error('请同意协议'))
             },
-            trigger: 'change'
-          }
-        ]
-      }
+            trigger: 'change',
+          },
+        ],
+      },
     }
   },
   methods: {
-    onLogin () {
+    onLogin() {
       // 获取表单数据 （根据接口要求绑定数据）
       // const user = this.user
 
@@ -112,7 +112,7 @@ export default {
         this._login()
       })
     },
-    _login () {
+    _login() {
       this.loginLoading = true
       this.text = '登录中'
       // 请求登录
@@ -122,7 +122,7 @@ export default {
           // 登录成功
           this.$message({
             message: '登录成功',
-            type: 'success'
+            type: 'success',
           })
           // 本地存储 这样任何地方都可以访问了
           window.localStorage.setItem('user', JSON.stringify(result.data.data))
@@ -139,8 +139,8 @@ export default {
           this.loginLoading = false
           this.text = '登录'
         })
-    }
-  }
+    },
+  },
 }
 </script>
 
