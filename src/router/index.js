@@ -6,7 +6,8 @@ import Home from '@/views/home/Index'
 import Layout from '@/views/layout/Index'
 import Article from '@/views/article/Index'
 import Publish from '@/views/publish/Index'
-import Image from "@/views/image/Index";
+import Image from "@/views/image/Index"
+import Commnet from "@/views/comment/Index";
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,10 @@ const routes = [{
     path: '/image',
     name: 'image',
     component: Image
+  }, {
+    path: '/comment',
+    name: 'comment',
+    component: Commnet
   }]
 }]
 

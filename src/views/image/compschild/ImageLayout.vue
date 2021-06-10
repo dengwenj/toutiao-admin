@@ -90,7 +90,6 @@ export default {
       upLoadHeader: {
         Authorization: `Bearer ${user.token}`,
       }, //请求头
-      // loadingcollect: [],
     }
   },
   computed: {},
@@ -128,7 +127,6 @@ export default {
 
     // 是否收藏
     isCollect(item) {
-      console.log(item)
       // console.log(item)
       // 收藏 点击取消收藏
       // 未收藏 点击添加收藏
@@ -153,6 +151,7 @@ export default {
             message: '取消收藏成功',
           })
         }
+        item.loading = false
       })
     },
     ondetele(id) {
