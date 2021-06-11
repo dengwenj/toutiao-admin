@@ -12,7 +12,7 @@
       <!-- 分页 -->
       <comment-pagination
         :totalCount="totalCount"
-        :pageSize="pageSize"
+        :currentPage="currentPage"
         @handleSizeChange="handleSizeChange"
         @handleCurrentChange="handleCurrentChange"
       ></comment-pagination>
@@ -40,7 +40,9 @@ export default {
     return {
       comment: [], // 评论
       totalCount: 0, // 总评论
-      pageSize: 10, // 每页多少
+      // pageSize: 10, // 每页多少
+      pageSizeSync: 10,
+      currentPage: 1,
     }
   },
   computed: {},
@@ -52,12 +54,15 @@ export default {
   mounted() {},
   methods: {
     _getArticles(page = 1) {
+      // 让分页组件激活的页码和请求数据的页码保持一致
+      this.currentPage = page
+
       getArticles({
         response_type: 'comment',
         page,
-        per_page: this.pageSize,
+        per_page: this.pageSizeSync,
       }).then((result) => {
-        console.log(result)
+        // console.log(result)
         const { results } = result.data.data
         results.forEach((item) => {
           item.statusDisabled = false
@@ -69,10 +74,13 @@ export default {
 
     handleCurrentChange(page) {
       this._getArticles(page)
+      this.currentPage = page
     },
 
-    handleSizeChange() {
-      // this._getArticles(1)
+    handleSizeChange(pageSizeSync) {
+      this.pageSizeSync = pageSizeSync
+      this._getArticles(1, pageSizeSync)
+      // console.log(pageSizeSync)
     },
   },
 }

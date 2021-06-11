@@ -1,11 +1,11 @@
 <template>
   <div class="pagination">
     <el-pagination
-      @size-change="handleSizeChange"
+      @size-change="handleSizeChange(pageSizeSync)"
       @current-change="handleCurrentChange"
-      :current-page="1"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="pageSize"
+      :current-page.sync="currentPageSync"
+      :page-sizes="[10, 20, 50]"
+      :page-size.sync="pageSizeSync"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalCount"
       background
@@ -23,21 +23,29 @@ export default {
       type: Number,
       default: 0,
     },
-    pageSize: {
+    currentPage: {
       type: Number,
-      default: 10,
+      default: 1,
     },
   },
   data() {
-    return {}
+    return {
+      pageSizeSync: 10,
+      currentPageSync: 1,
+    }
   },
   computed: {},
-  watch: {},
+  // 可以监听组件中属性的改变
+  watch: {
+    currentPage(value) {
+      this.currentPageSync = value
+    },
+  },
   created() {},
   mounted() {},
   methods: {
-    handleSizeChange() {
-      this.$emit('handleSizeChange')
+    handleSizeChange(pageSizeSync) {
+      this.$emit('handleSizeChange', pageSizeSync)
     },
     handleCurrentChange(page) {
       this.$emit('handleCurrentChange', page)

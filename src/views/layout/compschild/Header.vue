@@ -13,7 +13,9 @@
       </div>
       <!-- 下拉菜单<i class="el-icon-arrow-down el-icon--right"></i> -->
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>个人设置</el-dropdown-item>
+        <el-dropdown-item @click.native="onUserSettings"
+          >个人设置</el-dropdown-item
+        >
         <el-dropdown-item @click.native="onLogout">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -30,44 +32,44 @@ export default {
   props: {
     tupiao: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {
-      user: {} // 用户个人资料
+      user: {}, // 用户个人资料
     }
   },
   computed: {
-    zuoyou () {
+    zuoyou() {
       return this.tupiao ? 'el-icon-s-unfold' : 'el-icon-s-fold'
-    }
+    },
   },
   watch: {},
-  created () {
+  created() {
     // 网络请求 用户个人资料
     this._getUserProfile()
   },
-  mounted () {},
+  mounted() {},
   methods: {
     // 除了登录接口，其他所有接口都需要授权才能请求使用
     // 就是 除了登录接口，其他接口都需要提供身份 token
-    _getUserProfile () {
+    _getUserProfile() {
       getUserProfile().then((res) => {
         this.user = res.data.data
       })
     },
 
     // 事件
-    iClick () {
+    iClick() {
       // 字传父
       this.$emit('iClick')
     },
-    onLogout () {
+    onLogout() {
       this.$confirm('是否退出登录？', '退出提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       })
         .then(() => {
           // 删除本地储存的token 就相当于退出登录了
@@ -78,11 +80,15 @@ export default {
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消退出'
+            message: '已取消退出',
           })
         })
-    }
-  }
+    },
+
+    onUserSettings() {
+      this.$router.push('/settings')
+    },
+  },
 }
 </script>
 

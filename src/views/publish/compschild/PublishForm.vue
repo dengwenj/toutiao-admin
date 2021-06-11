@@ -117,7 +117,7 @@ export default {
               // console.log(rule)
               // console.log(callback)
               if (value === '<p></p>') {
-                callback(new Error('请再次输入密码'))
+                callback(new Error('请再次输入'))
               } else {
                 callback()
               }

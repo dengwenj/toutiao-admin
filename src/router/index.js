@@ -7,7 +7,8 @@ import Layout from '@/views/layout/Index'
 import Article from '@/views/article/Index'
 import Publish from '@/views/publish/Index'
 import Image from "@/views/image/Index"
-import Commnet from "@/views/comment/Index";
+import Commnet from "@/views/comment/Index"
+import Settings from "@/views/settings/Index"
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,10 @@ const routes = [{
     path: '/comment',
     name: 'comment',
     component: Commnet
+  }, {
+    path: '/settings',
+    name: 'settings',
+    component: Settings
   }]
 }]
 
