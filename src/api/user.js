@@ -38,3 +38,13 @@ export function upDataUser(data) {
     data
   })
 }
+
+// 修改用户头像
+// 注意:data 必须传递 FormData 对象
+export function upDateImg(data) {
+  return request({
+    url: '/mp/v1_0/user/photo',
+    method: 'PATCH',
+    data
+  })
+}

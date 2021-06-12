@@ -26,6 +26,9 @@
 // 网络请求
 import { getUserProfile } from '@/api/user'
 
+// 事件总线
+import globalBus from '@/utils/global-bus'
+
 export default {
   name: 'Header',
   components: {},
@@ -49,6 +52,12 @@ export default {
   created() {
     // 网络请求 用户个人资料
     this._getUserProfile()
+
+    //  事件总线 可以让任何组件之间相互通信  注册
+    globalBus.$on('update-user', (data) => {
+      this.user.name = data.name
+      this.user.photo = data.photo
+    })
   },
   mounted() {},
   methods: {

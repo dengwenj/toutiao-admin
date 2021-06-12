@@ -9,7 +9,7 @@ const request = axios.create({
 
   // 定义后端返回的原始数据的处理
   // 参数 data 就是后端返回的原始数据
-  transformResponse: [function (data) {
+  transformResponse: [function(data) {
     try {
       // 如果转换成功，则直接把结果返回
       return jsonBig.parse(data)
@@ -21,7 +21,7 @@ const request = axios.create({
 })
 
 // 请求拦截器
-request.interceptors.request.use(function (config) {
+request.interceptors.request.use(function(config) {
   // 任何所有请求都会经过这里
   // config 是当前请求相关的配置信息， config 是可以修改的
   // 统一设置 token

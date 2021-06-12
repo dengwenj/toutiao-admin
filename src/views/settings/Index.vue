@@ -41,6 +41,7 @@ export default {
   methods: {
     _getUserProfile() {
       getUserProfile().then((res) => {
+        // console.log(res)
         this.user = res.data.data
       })
     },
