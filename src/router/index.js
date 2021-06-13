@@ -9,6 +9,7 @@ import Publish from '@/views/publish/Index'
 import Image from "@/views/image/Index"
 import Commnet from "@/views/comment/Index"
 import Settings from "@/views/settings/Index"
+import Fans from "@/views/fans/Index";
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,10 @@ const routes = [{
     path: '/settings',
     name: 'settings',
     component: Settings
+  }, {
+    path: '/fans',
+    name: 'fans',
+    component: Fans
   }]
 }]
 

@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "cropperjs": "^1.5.11",
+    "echarts": "^5.1.2",
     "element-ui": "^2.15.2",
     "json-bigint": "^1.0.0",
     "quill-image-drop-module": "^1.0.3",
