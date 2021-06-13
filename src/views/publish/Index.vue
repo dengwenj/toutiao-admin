@@ -11,7 +11,10 @@
         :channels="channels"
         :activeId="activeId"
         @addArticle="addArticle"
-      ></publish-form>
+      >
+        <!-- 文章封面 -->
+        <upload-cover />
+      </publish-form>
     </el-card>
   </div>
 </template>
@@ -19,6 +22,7 @@
 <script>
 import PublishBreadcrumb from './compschild/PublishBreadcrumb'
 import PublishForm from './compschild/PublishForm'
+import UploadCover from './compschild/UploadCover'
 
 // 请求数据
 import {
@@ -33,6 +37,7 @@ export default {
   components: {
     PublishBreadcrumb,
     PublishForm,
+    UploadCover,
   },
   props: {},
   data() {

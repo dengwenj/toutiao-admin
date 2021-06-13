@@ -9,15 +9,6 @@
       <el-input v-model="article.title"></el-input>
     </el-form-item>
     <el-form-item label="内容" prop="content">
-      <!-- <el-card style="height: 255px">
-        <quill-editor
-          v-model="article.content"
-          ref="myQuillEditor"
-          style="height: 165px"
-          :options="editorOption"
-        >
-        </quill-editor>
-      </el-card> -->
       <quill-editor
         v-model="article.content"
         ref="myQuillEditor"
@@ -27,12 +18,17 @@
       </quill-editor>
     </el-form-item>
     <el-form-item label="封面">
-      <el-radio-group v-model="article.cover.type">
+      <el-radio-group
+        v-model="article.cover.type"
+        @change="radioChange(article)"
+      >
         <el-radio :label="1">单图</el-radio>
         <el-radio :label="3">三图</el-radio>
         <el-radio :label="0">无图</el-radio>
         <el-radio :label="-1">自动</el-radio>
       </el-radio-group>
+      <!-- 插槽 -->
+      <slot></slot>
     </el-form-item>
     <el-form-item label="频道" prop="channel_id">
       <el-select v-model="article.channel_id" placeholder="请选择频道">
@@ -71,6 +67,9 @@ Quill.register('modules/imageResize', ImageResize)
 
 // 富文本编辑器的图片上传，显示的地址是base64格式，如何图片上传过多的话就会特别减缓富文本的提交速度，特别慢而且会报错。所以会选择将图片上传到服务器上，然后返回后台给的img链接，最后显示在富文本对应的位置。
 // 给后台传的图片格式是formData格式，就是文件格式
+
+// 事件总线
+import globalBus from '@/utils/global-bus'
 
 export default {
   name: 'PublishForm',
@@ -187,6 +186,11 @@ export default {
           this.$emit('addArticle', article, draft)
         }
       })
+    },
+
+    // 当单选框发生改变的时候
+    radioChange(article) {
+      globalBus.$emit('radioChange', article.cover.type)
     },
   },
 }
