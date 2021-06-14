@@ -85,6 +85,14 @@ export default {
       type: String,
       defalut: '',
     },
+    index: {
+      type: Number,
+      defalut: 0,
+    },
+    url: {
+      type: String,
+      defalut: '',
+    },
   },
   data() {
     return {
@@ -167,14 +175,26 @@ export default {
         theme: 'snow', //主题 snow/bubble
         syntax: true, //语法检测
       },
+      indexImg: null,
+      urlImg: '',
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    index(value) {
+      this.indexImg = value
+    },
+    url(value) {
+      this.urlImg = value
+    },
+  },
   created() {},
   mounted() {},
   methods: {
     onPublish(article, draft) {
+      this.article.cover.images[this.indexImg] = this.urlImg
+
+      globalBus.$emit('indexUrl', this.article.cover.images[this.indexImg])
       // 校验
       this.$refs['publish-form'].validate((valid) => {
         // valid 只要有一个没有符合校验规则就是 false  符合就是 true
@@ -190,6 +210,7 @@ export default {
 
     // 当单选框发生改变的时候
     radioChange(article) {
+      this.$emit('radioChange', article.cover.type)
       globalBus.$emit('radioChange', article.cover.type)
     },
   },

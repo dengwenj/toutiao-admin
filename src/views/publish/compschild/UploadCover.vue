@@ -1,8 +1,13 @@
 <template>
   <div>
-    <div class="upload-cover" v-if="type > 0">
-      <div class="type" v-for="item in type" :key="item" @click="imageCover">
-        <el-image ref="el-image" class="cover-img" :src="srcImg">
+    <div class="upload-cover" @click="imageCover">
+      <div class="type">
+        <el-image
+          ref="image"
+          class="cover-img"
+          :src="srcImg"
+          @click.native="imageCover"
+        >
           <div slot="error" class="image-slot">
             <i class="el-icon-picture-outline i"></i>
           </div>
@@ -51,6 +56,9 @@ export default {
     globalBus.$on('radioChange', (type) => {
       this.type = type
     })
+    globalBus.$on('indexUrl', (img) => {
+      this.srcImg = img
+    })
   },
   mounted() {},
   methods: {
@@ -85,14 +93,14 @@ export default {
         // 关闭弹出层
         this.dialogVisible = false
 
+        // 执行上传文件的操作
         const fd = new FormData()
         fd.append('image', file)
         // 如果有文件就发送请求
         uploadImage(fd).then((res) => {
-          console.log(res)
-          console.log(res.data.data.url)
-          console.log(this.$refs['el-image'])
           this.srcImg = res.data.data.url
+
+          this.$emit('coverUpload', res.data.data.url)
         })
       }
     },

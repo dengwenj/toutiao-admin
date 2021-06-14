@@ -10,10 +10,19 @@
         ref="publishForm"
         :channels="channels"
         :activeId="activeId"
+        :index="index"
+        :url="url"
         @addArticle="addArticle"
+        @radioChange="radioChange"
       >
         <!-- 文章封面 -->
-        <upload-cover />
+        <div v-if="type > 0" class="upload-cover">
+          <upload-cover
+            v-for="(item, index) in type"
+            :key="item"
+            @coverUpload="coverUpload(index, $event)"
+          />
+        </div>
       </publish-form>
     </el-card>
   </div>
@@ -44,6 +53,9 @@ export default {
     return {
       channels: [], // 文章频道列表
       activeId: null, // 活跃路由的id
+      type: null,
+      index: null,
+      url: '',
     }
   },
   computed: {},
@@ -70,6 +82,7 @@ export default {
         this.channels = data.channels
       })
     },
+
     addArticle(article, draft) {
       // 如果是修改文章，则执行修改操作，否则执行添加操作
       if (this.activeId) {
@@ -106,8 +119,21 @@ export default {
         this.$refs.publishForm.article = res.data.data
       })
     },
+
+    radioChange(type) {
+      this.type = type
+    },
+
+    coverUpload(index, url) {
+      this.index = index
+      this.url = url
+    },
   },
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.upload-cover {
+  display: flex;
+}
+</style>
