@@ -1,7 +1,7 @@
 <template>
   <el-menu
     class="nav-menu"
-    default-active="/"
+    :default-active="$route.path"
     background-color="#002033"
     text-color="#fff"
     active-text-color="#ffd04b"
@@ -48,17 +48,17 @@ export default {
   props: {
     collapse: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {}
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
-  methods: {}
+  created() {},
+  mounted() {},
+  methods: {},
 }
 </script>
 

@@ -7,7 +7,11 @@
         <el-radio-button :label="false">全部</el-radio-button>
         <el-radio-button :label="true">收藏</el-radio-button>
       </el-radio-group>
-      <el-button type="success" size="small" @click="dialogUpLoadVisible = true"
+      <el-button
+        v-if="isShowAdd"
+        type="success"
+        size="small"
+        @click="dialogUpLoadVisible = true"
         >上传素材<i class="el-icon-upload el-icon--right"></i
       ></el-button>
     </div>
@@ -22,9 +26,15 @@
         :span="4"
         v-for="(item, index) in images"
         :key="index"
+        @click.native="selected = index"
       >
         <el-image style="height: 200px" :src="item.url" fit="cover"></el-image>
-        <div class="scsc">
+        <!-- √√ -->
+        <div
+          v-show="isShowSelected && selected === index"
+          class="selected"
+        ></div>
+        <div class="scsc" v-if="isShowAction">
           <el-button
             class="image-button"
             type="warning"
@@ -81,7 +91,36 @@ import { collectImage, collectDelete } from '@/api/image'
 export default {
   name: '',
   components: {},
-  props: ['images', 'loadImage'],
+  // props: ['images', 'loadImage'],
+  props: {
+    images: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    loadImage: {
+      type: Function,
+      default() {
+        return function () {}
+      },
+    },
+    // 是否显示上传素材
+    isShowAdd: {
+      type: Boolean,
+      default: true,
+    },
+    // 是否显示图片下方的删除和收藏
+    isShowAction: {
+      type: Boolean,
+      default: true,
+    },
+    // 是否显示勾勾
+    isShowSelected: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     const user = JSON.parse(window.localStorage.getItem('user'))
     return {
@@ -90,6 +129,7 @@ export default {
       upLoadHeader: {
         Authorization: `Bearer ${user.token}`,
       }, //请求头
+      selected: null, // 显示选中的打√
     }
   },
   computed: {},
@@ -194,5 +234,17 @@ export default {
 }
 .image-button {
   margin-right: 30px;
+}
+.selected {
+  background: url('./selected.png');
+  background-size: cover;
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  bottom: 0;
+  left: 30px;
+  opacity: 0.8;
 }
 </style>

@@ -17,7 +17,26 @@
     <!-- 弹出层 -->
     <el-dialog title="选择封面" :visible.sync="dialogVisible" append-to-body>
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-        <el-tab-pane label="素材库" name="first">素材库</el-tab-pane>
+        <el-tab-pane label="素材库" name="first">
+          <!-- 素材列表 -->
+          <image-layout
+            ref="image-layout"
+            :images="images"
+            :loadImage="loadImage"
+            :is-show-add="false"
+            :is-show-action="false"
+            is-show-selected
+            @collect="collect"
+          ></image-layout>
+
+          <!-- 素材分页 -->
+          <image-pagination
+            @changePage="changePage"
+            :totalCount="totalCount"
+            :pageSize="pageSize"
+            :currentpagesync="currentpagesync"
+          ></image-pagination>
+        </el-tab-pane>
         <el-tab-pane label="上传图片" name="second">
           <input ref="input" type="file" @change="onChangeInput" />
           <img ref="img" src="" alt="" />
@@ -32,15 +51,21 @@
 </template>
 
 <script>
+import ImageLayout from '@/views/image/compschild/ImageLayout'
+import ImagePagination from '@/views/image/compschild/ImagePagination'
+
 // 事件总线
 import globalBus from '@/utils/global-bus'
 
 // 网络请求
-import { uploadImage } from '@/api/image'
+import { uploadImage, getImages } from '@/api/image'
 
 export default {
   name: '',
-  components: {},
+  components: {
+    ImageLayout,
+    ImagePagination,
+  },
   props: {},
   data() {
     return {
@@ -48,6 +73,12 @@ export default {
       dialogVisible: false,
       activeName: 'first',
       srcImg: '',
+      images: [], // 图片素材列表
+      loadImage: null, // 重新发送请求渲染新的数据
+      page: 1, // 当前页
+      totalCount: 0, // 总数据条数
+      pageSize: 12, // 每页有多少条
+      currentpagesync: 1, // 重置高亮页码，防止数据页码不对应 就是在全部和收藏的时候防止页码不对应
     }
   },
   computed: {},
@@ -59,6 +90,10 @@ export default {
     globalBus.$on('indexUrl', (img) => {
       this.srcImg = img
     })
+
+    // 发送请求
+    this.loadImage = this.loadImages
+    this.loadImages(this.page)
   },
   mounted() {},
   methods: {
@@ -102,7 +137,48 @@ export default {
 
           this.$emit('coverUpload', res.data.data.url)
         })
+      } else if (this.activeName === 'first') {
+        // 关闭弹出层
+        this.dialogVisible = false
+        //
+        const selected = this.$refs['image-layout'].selected
+        if (selected === null) {
+          this.$message({
+            type: 'warning',
+            message: '请选择封面图片',
+          })
+        }
+        this.srcImg = this.images[selected].url
+        this.$emit('coverUpload', this.images[selected].url)
       }
+    },
+
+    // 网络请求
+    loadImages(page = 1, value = false) {
+      // 重置高亮页码，防止数据页码不对应
+      this.currentpagesync = page
+      getImages({
+        collect: value,
+        page,
+        per_page: this.pageSize,
+      }).then((res) => {
+        console.log(res)
+        const { data } = res.data
+        this.images = data.results
+        this.totalCount = data.total_count // 总条数
+      })
+    },
+
+    // 点击是否收藏
+    collect(value) {
+      // 只要触发这里就每次就是从第一页开始
+      this.loadImages(1, value)
+    },
+
+    // 点击下面的页码
+    changePage(page) {
+      this.page = page
+      this.loadImages(this.page)
     },
   },
 }
