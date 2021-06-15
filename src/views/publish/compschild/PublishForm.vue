@@ -120,9 +120,6 @@ export default {
           {
             validator(rule, value, callback) {
               // value 是输入的值 数据的值
-              // console.log(value)
-              // console.log(rule)
-              // console.log(callback)
               if (value === '<p></p>') {
                 callback(new Error('请再次输入'))
               } else {
