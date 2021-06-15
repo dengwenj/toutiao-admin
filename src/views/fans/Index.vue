@@ -72,7 +72,7 @@ export default {
         page,
         per_page: this.pageSize,
       }).then((res) => {
-        console.log(res)
+        // console.log(res)
         const { results } = res.data.data
         this.fansList = results
         this.totalCount = res.data.data.total_count
