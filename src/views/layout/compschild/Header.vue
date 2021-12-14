@@ -2,7 +2,7 @@
   <div class="nav-header">
     <div>
       <i :class="zuoyou" @click="iClick"></i>
-      <span class="left">由f2e.xd私人开发的尾尾头条</span>
+      <span class="left">由 F2E.DengWJ 私人开发的尾尾头条</span>
     </div>
     <el-dropdown>
       <div class="right">
